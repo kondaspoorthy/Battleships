@@ -81,10 +81,10 @@ def createShip():
     col=random.randint(1,8)
     k=random.randint(0,1)
     if k==0:
-        r=[[row-1,col],[row,col],[row+1,col]]
+        ship=[[row-1,col],[row,col],[row+1,col]]
     if k==1:
-        r=[[row,col-1],[row,col],[row,col+1]]
-    return r
+        ship=[[row,col-1],[row,col],[row,col+1]]
+    return ship
 
 
 '''
