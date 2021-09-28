@@ -296,7 +296,7 @@ if __name__ == "__main__":
 #test.testEmptyGrid()
     ## Finally, run the simulation to test it manually ##
     #runSimulation(500, 500)
-    #test.testEmptyGrid()
-    #test.testCreateShip()
-    #test.testCheckShip()
+    test.testEmptyGrid()
+    test.testCreateShip()
+    test.testCheckShip()
     test.testAddShips()

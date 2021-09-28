@@ -41,6 +41,7 @@ def addShips(grid, numShips):
     print(count)
     return grid
 grid=emptyGrid(10,10)
+test.testEmptyGrid()
 ship=createShip()
 checkShip(grid,ship)
 addShips(grid,2)
