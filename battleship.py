@@ -31,7 +31,7 @@ def makeModel(data):
     data["cell_size"] = data["board_size"]/(data["number_of_rows"])
     data["num_ships"]=5
     data["computer_board"]= emptyGrid(data["number_of_rows"],data["number_of_cols"])
-    data["user_board"]=test.testGrid()
+    data["user_board"]=emptyGrid(data["number_of_rows"],data["number_of_cols"])
     data["computer_board"]=addShips(data["computer_board"],data["num_ships"]) 
     return data
 
