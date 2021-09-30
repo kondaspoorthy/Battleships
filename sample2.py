@@ -1,7 +1,5 @@
-a=int(input("Ener the value of a"))
-b=int(input("Ener the value of b"))
-c=int(input("Ener the value of c"))
-if((a>=b>=c) and (a!=b!=c)):
-    print("They are NotEqual")
-else:
-    print("They  are Unequal")
+ship=[[],[],[]]
+ship[0].append(1)
+ship[1].append(2)
+ship[2].append(3)
+print(ship)
