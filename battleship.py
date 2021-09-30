@@ -187,7 +187,13 @@ Parameters: dict mapping strs to values ; mouse event object
 Returns: list of ints
 '''
 def getClickedCell(data, event):
-    return
+    lst=[]
+    for row in range(data["number_of_rows"]):
+        for col in range(data["number_of_cols"]):
+            if(row*data["cell_size"]<=event.y<=(row+1)*data["cell_size"] and col*data["cell_size"]<=event.x<=(col+1)*data["cell_size"] ):
+                lst.append(row)
+                lst.append(col)
+    return lst
 
 
 '''
@@ -336,5 +342,6 @@ if __name__ == "__main__":
     #test.testCheckShip()
     #test.testAddShips()
     #test.testMakeModel()
-    test.testIsVertical()
-    test.testIsHorizontal()
+    #test.testIsVertical()
+    #test.testIsHorizontal()
+    test.testGetClickedCell()
