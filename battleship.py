@@ -31,7 +31,8 @@ def makeModel(data):
     data["cell_size"] = data["board_size"]/(data["number_of_rows"])
     data["num_ships"]=5
     data["computer_board"]= emptyGrid(data["number_of_rows"],data["number_of_cols"])
-    data["user_board"]=emptyGrid(data["number_of_rows"],data["number_of_cols"])
+    #changed here
+    data["user_board"]= emptyGrid(data["number_of_rows"],data["number_of_cols"])
     data["computer_board"]=addShips(data["computer_board"],data["num_ships"]) 
     data["temporary_ship"]=[]
     data["num_of_userships"]=0
@@ -46,8 +47,7 @@ Returns: None
 def makeView(data, userCanvas, compCanvas):
     drawGrid(data,compCanvas,data["computer_board"],True)
     drawGrid(data,userCanvas,data["user_board"],True)
-    drawShip(data,userCanvas,test.testShip())
-    return
+    drawShip(data,userCanvas,data["temporary_ship"])
 
 
 '''
@@ -65,7 +65,9 @@ Parameters: dict mapping strs to values ; mouse event object ; 2D list of ints
 Returns: None
 '''
 def mousePressed(data, event, board):
-    pass
+    output=getClickedCell(data,event)
+    if(board=="user"):
+        clickUserBoard(data,output[0],output[1])
 
 #### WEEK 1 ####
 
@@ -197,6 +199,7 @@ def getClickedCell(data, event):
                 lst.append(row)
                 lst.append(col)
     return lst
+    #return [event.y//data["cell_size"],event.x//data["cell_size"]]
 
 
 '''
@@ -206,6 +209,7 @@ Returns: None
 '''
 def drawShip(data, canvas, ship):
     for i in range(0,3):
+#canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill="blue")
         canvas.create_rectangle(ship[i][1]*data["cell_size"],ship[i][0]*data["cell_size"],ship[i][1]*data["cell_size"]+data["cell_size"],ship[i][0]*data["cell_size"]+data["cell_size"],fill="white")    
     return
 
@@ -252,7 +256,7 @@ def clickUserBoard(data, row, col):
         return
     else:
         data["temporary_ship"].append([row,col])
-        if(len(data["temporary_ship"])==3):
+    if(len(data["temporary_ship"])==3):
             placeShip(data)
     if(data["num_of_userships"]==5):
         print("Start playing the game")
@@ -360,14 +364,7 @@ def runSimulation(w, h):
 if __name__ == "__main__":
 #test.testEmptyGrid()
     ## Finally, run the simulation to test it manually ##
+    test.week1Tests()
+    #test.week2Tests()
     runSimulation(500, 500)
-    #test.testEmptyGrid()
-    #test.testCreateShip()
-    #test.testCheckShip()
-    #test.testAddShips()
-    #test.testMakeModel()
-    #test.testIsVertical()
-    #test.testIsHorizontal()
-    test.testGetClickedCell()
-    #clickUserBoard(data,row,col)
-    test.testShipIsValid()
+    
