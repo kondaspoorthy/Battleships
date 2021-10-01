@@ -45,7 +45,7 @@ Returns: None
 def makeView(data, userCanvas, compCanvas):
     drawGrid(data,compCanvas,data["computer_board"],True)
     drawGrid(data,userCanvas,data["user_board"],True)
-    drawShip(data,userCanvas,test.testShip())
+    drawShip(data,userCanvas,data["temporary_ship"])
     return
 
 
@@ -204,8 +204,8 @@ Parameters: dict mapping strs to values ; Tkinter canvas; 2D list of ints
 Returns: None
 '''
 def drawShip(data, canvas, ship):
-    for i in range(0,3):
-        canvas.create_rectangle(ship[i][1]*data["cell_size"],ship[i][0]*data["cell_size"],ship[i][1]*data["cell_size"]+data["cell_size"],ship[i][0]*data["cell_size"]+data["cell_size"],fill="white")    
+    for i in ship:
+        canvas.create_rectangle(i[1]*data["cell_size"],i[0]*data["cell_size"],i[1]*data["cell_size"]+data["cell_size"],i[0]*data["cell_size"]+data["cell_size"],fill="white")
     return
 
 
