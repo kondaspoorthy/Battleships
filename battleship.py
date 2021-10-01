@@ -365,6 +365,6 @@ if __name__ == "__main__":
 #test.testEmptyGrid()
     ## Finally, run the simulation to test it manually ##
     test.testShipIsValid()
-    #test.week2Tests()
+    test.week2Tests()
     runSimulation(500, 500)
     
