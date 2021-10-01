@@ -1,5 +1,5 @@
-ship=[[],[],[]]
-ship[0].append(1)
-ship[1].append(2)
-ship[2].append(3)
-print(ship)
+ship=[[1,2 ],[3,4 ],[5,6]]
+if [1,2] in  ship:
+    print("True")
+else:
+    print("False")
