@@ -210,10 +210,8 @@ Parameters: dict mapping strs to values ; Tkinter canvas; 2D list of ints
 Returns: None
 '''
 def drawShip(data, canvas, ship):
-    #for i in ship:
-         #canvas.create_rectangle(i[1]*data["cell_size"],i[0]*data["cell_size"],i[1]*data["cell_size"]+data["cell_size"],i[0]*data["cell_size"]+data["cell_size"],fill="white")
-    for i in range(0,3):
-        canvas.create_rectangle(ship[i][1]*data["cell_size"],ship[i][0]*data["cell_size"],ship[i][1]*(data["cell_size"])+data["cell_size"],ship[i][0]*(data["cell_size"])+data["cell_size"],fill="white")
+    for i in ship:
+         canvas.create_rectangle(i[1]*data["cell_size"],i[0]*data["cell_size"],i[1]*data["cell_size"]+data["cell_size"],i[0]*data["cell_size"]+data["cell_size"],fill="white")
     return
 
 
@@ -370,6 +368,6 @@ if __name__ == "__main__":
     ## Finally, run the simulation to test it manually ##
     test.testShipIsValid()
     #test.week2Tests()
-    test.testDrawGrid()
+    test.testDrawShip()
     runSimulation(500, 500)
     
