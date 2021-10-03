@@ -45,7 +45,7 @@ Parameters: dict mapping strs to values ; Tkinter canvas ; Tkinter canvas
 Returns: None
 '''
 def makeView(data, userCanvas, compCanvas):
-    drawGrid(data,compCanvas,data["computer_board"],True)
+    drawGrid(data,compCanvas,data["computer_board"],False)
     drawGrid(data,userCanvas,data["user_board"],True)
     drawShip(data,userCanvas,data["temporary_ship"])
     return
@@ -70,6 +70,10 @@ def mousePressed(data, event, board):
     output=getClickedCell(data,event)
     if(board=="user"):
         clickUserBoard(data,output[0],output[1])
+    elif(board=="comp" and data["num_of_userships"]):
+        output=getClickedCell(data,event)
+        runGameTurn(data,output[0],output[1])
+
 
 #### WEEK 1 ####
 
@@ -142,10 +146,17 @@ Returns: None
 def drawGrid(data, canvas, grid, showShips):
     for rows in range(0,data["number_of_rows"]):
         for cols in range(0,data["number_of_cols"]):
-            if(grid[rows][cols]!=SHIP_UNCLICKED):
+            if(grid[rows][cols]==EMPTY_UNCLICKED):
                 canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill="blue")
-            else:
-                canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill="yellow")
+            elif(grid[rows][cols]==SHIP_UNCLICKED):
+                if(showShips==False):
+                    canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill="blue")
+                else: 
+                    canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill="yellow")
+            elif(grid[rows][cols]==SHIP_CLICKED):
+                canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill="red")
+            elif(grid[rows][cols]==EMPTY_CLICKED):
+                 canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill="white")
     return
 
 
@@ -210,6 +221,7 @@ Parameters: dict mapping strs to values ; Tkinter canvas; 2D list of ints
 Returns: None
 '''
 def drawShip(data, canvas, ship):
+    print("ship:3",ship)
     for i in ship:
          canvas.create_rectangle(i[1]*data["cell_size"],i[0]*data["cell_size"],i[1]*data["cell_size"]+data["cell_size"],i[0]*data["cell_size"]+data["cell_size"],fill="white")
     return
@@ -236,6 +248,7 @@ Parameters: dict mapping strs to values
 Returns: None
 '''
 def placeShip(data):
+        print("ship2:",data["temporary_ship"])
         if(shipIsValid(data["user_board"],data["temporary_ship"])):
             for i in range(0,len(data["temporary_ship"])):
                     data["user_board"][data["temporary_ship"][i][0]][data["temporary_ship"][i][1]]=SHIP_UNCLICKED
@@ -258,6 +271,7 @@ def clickUserBoard(data, row, col):
         return
     else:
         data["temporary_ship"].append([row,col])
+        print("ship1:",data["temporary_ship"])
     if(len(data["temporary_ship"])==3):
             placeShip(data)
     if(data["num_of_userships"]==5):
@@ -270,6 +284,10 @@ Parameters: dict mapping strs to values ; 2D list of ints ; int ; int ; str
 Returns: None
 '''
 def updateBoard(data, board, row, col, player):
+    if(board[row][col]==SHIP_UNCLICKED):
+        board[row][col]=SHIP_CLICKED
+    elif(board[row][col]==EMPTY_UNCLICKED):
+        board[row][col]=EMPTY_CLICKED    
     return
 
 
@@ -279,6 +297,10 @@ Parameters: dict mapping strs to values ; int ; int
 Returns: None
 '''
 def runGameTurn(data, row, col):
+    if(data["computer_board"]==SHIP_CLICKED or data["computer_board"]==EMPTY_CLICKED):
+        return
+    else:
+        updateBoard(data,data["computer_board"],row,col,"user")
     return
 
 
@@ -366,8 +388,9 @@ def runSimulation(w, h):
 if __name__ == "__main__":
 #test.testEmptyGrid()
     ## Finally, run the simulation to test it manually ##
-    test.testShipIsValid()
+    #test.testShipIsValid()
     #test.week2Tests()
-    test.testDrawShip()
+    #test.testDrawShip()
+    test.testUpdateBoard()
     runSimulation(500, 500)
     
