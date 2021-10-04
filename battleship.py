@@ -34,7 +34,7 @@ def makeModel(data):
     data["user_board"]=emptyGrid(data["number_of_rows"],data["number_of_cols"])
     data["computer_board"]=addShips(data["computer_board"],data["num_ships"]) 
     data["temporary_ship"]=[]
-    return 
+    return data
 
 
 '''
@@ -195,6 +195,7 @@ def getClickedCell(data, event):
             if(row*data["cell_size"]<=event.y<=(row+1)*data["cell_size"] and col*data["cell_size"]<=event.x<=(col+1)*data["cell_size"] ):
                 lst.append(row)
                 lst.append(col)
+                #(lst)
     return lst
 
 
@@ -205,7 +206,7 @@ Returns: None
 '''
 def drawShip(data, canvas, ship):
     for i in ship:
-        canvas.create_rectangle(i[1]*data["cell_size"],i[0]*data["cell_size"],i[1]*data["cell_size"]+data["cell_size"],i[0]*data["cell_size"]+data["cell_size"],fill="white")
+        canvas.create_rectangle(i[1]*data["cell_size"],i[0]*data["cell_size"],i[1]*data["cell_size"]+data["cell_size"],i[0]*data["cell_size"]+data["cell_size"],fill="White")
     return
 
 
@@ -340,7 +341,7 @@ def runSimulation(w, h):
 if __name__ == "__main__":
 #test.testEmptyGrid()
     ## Finally, run the simulation to test it manually ##
-    runSimulation(500, 500)
+    #runSimulation(500, 500)
     #test.testEmptyGrid()
     #test.testCreateShip()
     #test.testCheckShip()
@@ -348,4 +349,5 @@ if __name__ == "__main__":
     #test.testMakeModel()
     #test.testIsVertical()
     #test.testIsHorizontal()
-    test.testGetClickedCell()
+    #test.testGetClickedCell()
+    test.testDrawShip()
