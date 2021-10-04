@@ -70,7 +70,7 @@ def mousePressed(data, event, board):
     output=getClickedCell(data,event)
     if(board=="user"):
         clickUserBoard(data,output[0],output[1])
-    elif(board=="comp" and data["num_of_userships"]):
+    elif(board=="comp" and data["num_of_userships"]==5):
         output=getClickedCell(data,event)
         runGameTurn(data,output[0],output[1])
 
@@ -248,7 +248,6 @@ Parameters: dict mapping strs to values
 Returns: None
 '''
 def placeShip(data):
-        print("ship2:",data["temporary_ship"])
         if(shipIsValid(data["user_board"],data["temporary_ship"])):
             for i in range(0,len(data["temporary_ship"])):
                     data["user_board"][data["temporary_ship"][i][0]][data["temporary_ship"][i][1]]=SHIP_UNCLICKED
@@ -271,7 +270,6 @@ def clickUserBoard(data, row, col):
         return
     else:
         data["temporary_ship"].append([row,col])
-        print("ship1:",data["temporary_ship"])
     if(len(data["temporary_ship"])==3):
             placeShip(data)
     if(data["num_of_userships"]==5):
