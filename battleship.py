@@ -70,9 +70,10 @@ def mousePressed(data, event, board):
     output=getClickedCell(data,event)
     if(board=="user"):
         clickUserBoard(data,output[0],output[1])
-    elif(board=="comp" and data["num_of_userships"]):
-        output=getClickedCell(data,event)
-        runGameTurn(data,output[0],output[1])
+    #elif(board=="comp" and data["num_of_userships"]):
+        #output=getClickedCell(data,event)
+        #runGameTurn(data,output[0],output[1])
+    return
 
 
 #### WEEK 1 ####
@@ -301,7 +302,10 @@ def runGameTurn(data, row, col):
         return
     else:
         updateBoard(data,data["computer_board"],row,col,"user")
+    choice=getComputerGuess(data["user_board"])
+    updateBoard(data,data["user_board"],choice[0],choice[1],"comp")
     return
+
 
 
 '''
@@ -310,7 +314,15 @@ Parameters: 2D list of ints
 Returns: list of ints
 '''
 def getComputerGuess(board):
-    return
+    row=random.randint(0,9)
+    col=random.randint(0,9)
+    if(board[row][col]==EMPTY_UNCLICKED or board[row][col]==SHIP_UNCLICKED):
+        return [row,col]
+    else:
+        while(board[row][col]==EMPTY_CLICKED or board[row][col]==SHIP_CLICKED):
+            row=random.randint(0,9)
+            col=random.randint(0,9)
+        return [row,col]
 
 
 '''
@@ -393,4 +405,5 @@ if __name__ == "__main__":
     #test.testDrawShip()
     test.testUpdateBoard()
     runSimulation(500, 500)
+    test.testGetComputerGuess()
     
