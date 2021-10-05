@@ -69,16 +69,15 @@ Parameters: dict mapping strs to values ; mouse event object ; 2D list of ints
 Returns: None
 '''
 def mousePressed(data, event, board):
-    if(data["winner"]!=None):
-        return
     output=getClickedCell(data,event)
     if(board=="user"):
-        clickUserBoard(data,output[0],output[1])       
+        clickUserBoard(data,output[0],output[1])          
     if(board=="comp" and data["num_of_userships"]==5):
-        output=getClickedCell(data,event)
-        if(data["computer_board"][output[0]][output[1]]==SHIP_CLICKED or data["computer_board"][output[0]][output[1]]==EMPTY_CLICKED):
+        if(data["winner"]==None):
+            output=getClickedCell(data,event)
+            if(data["computer_board"][output[0]][output[1]]==SHIP_CLICKED or data["computer_board"][output[0]][output[1]]==EMPTY_CLICKED):
                 return
-        runGameTurn(data,output[0],output[1])
+            runGameTurn(data,output[0],output[1])
     return
 
 
@@ -228,7 +227,6 @@ Parameters: dict mapping strs to values ; Tkinter canvas; 2D list of ints
 Returns: None
 '''
 def drawShip(data, canvas, ship):
-    print("ship:3",ship)
     for i in ship:
          canvas.create_rectangle(i[1]*data["cell_size"],i[0]*data["cell_size"],i[1]*data["cell_size"]+data["cell_size"],i[0]*data["cell_size"]+data["cell_size"],fill="white")
     return
@@ -255,7 +253,6 @@ Parameters: dict mapping strs to values
 Returns: None
 '''
 def placeShip(data):
-        print("ship2:",data["temporary_ship"])
         if(shipIsValid(data["user_board"],data["temporary_ship"])):
             for i in range(0,len(data["temporary_ship"])):
                     data["user_board"][data["temporary_ship"][i][0]][data["temporary_ship"][i][1]]=SHIP_UNCLICKED
@@ -278,7 +275,6 @@ def clickUserBoard(data, row, col):
         return
     else:
         data["temporary_ship"].append([row,col])
-        print("ship1:",data["temporary_ship"])
     if(len(data["temporary_ship"])==3):
             placeShip(data)
     if(data["num_of_userships"]==5):
@@ -339,10 +335,13 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isGameOver(board):
-    if SHIP_UNCLICKED in  board:
-        return False
-    else:   
-        return True
+    for each in board:
+        for i in each:
+            if(i==SHIP_UNCLICKED):
+                return False
+    return True
+
+    
 
 
 '''
@@ -351,10 +350,11 @@ Parameters: dict mapping strs to values ; Tkinter canvas
 Returns: None
 '''
 def drawGameOver(data, canvas):
+    fnt=('Times',40,'bold')
     if(data["winner"]=="user"):
-        canvas.create_text(200,200,text="congraluations",fill="pink")
+        canvas.create_text(250,250,text="congraluations",fill="pink",font=fnt)
     elif(data["winner"]=="comp"):
-        canvas.create_text(200,200,text="Tryagain",fill="red")
+        canvas.create_text(250,250,text="Tryagain",fill="red",font=fnt)
     return
 
 
@@ -421,4 +421,5 @@ if __name__ == "__main__":
     test.testUpdateBoard()
     runSimulation(500, 500)
     test.testGetComputerGuess()
+    test.testIsGameOver()
     
