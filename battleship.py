@@ -224,7 +224,6 @@ Parameters: dict mapping strs to values ; Tkinter canvas; 2D list of ints
 Returns: None
 '''
 def drawShip(data, canvas, ship):
-    print("ship:3",ship)
     for i in ship:
          canvas.create_rectangle(i[1]*data["cell_size"],i[0]*data["cell_size"],i[1]*data["cell_size"]+data["cell_size"],i[0]*data["cell_size"]+data["cell_size"],fill="white")
     return
@@ -251,7 +250,6 @@ Parameters: dict mapping strs to values
 Returns: None
 '''
 def placeShip(data):
-        print("ship2:",data["temporary_ship"])
         if(shipIsValid(data["user_board"],data["temporary_ship"])):
             for i in range(0,len(data["temporary_ship"])):
                     data["user_board"][data["temporary_ship"][i][0]][data["temporary_ship"][i][1]]=SHIP_UNCLICKED
@@ -274,7 +272,6 @@ def clickUserBoard(data, row, col):
         return
     else:
         data["temporary_ship"].append([row,col])
-        print("ship1:",data["temporary_ship"])
     if(len(data["temporary_ship"])==3):
             placeShip(data)
     if(data["num_of_userships"]==5):
