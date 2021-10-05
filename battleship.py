@@ -62,7 +62,9 @@ Parameters: dict mapping strs to values ; key event object
 Returns: None
 '''
 def keyPressed(data, event):
-    pass
+    if(event.keycode==13):
+        makeModel(data)
+    
 
 
 '''
@@ -358,10 +360,13 @@ def drawGameOver(data, canvas):
     fnt=('Times',40,'bold')
     if(data["winner"]=="user"):
         canvas.create_text(250,250,text="congraluations",fill="pink",font=fnt)
+        canvas.create_text(350,300,text="Want to play again press Enter",fill="green",font=fnt)
     elif(data["winner"]=="comp"):
         canvas.create_text(250,250,text="Tryagain",fill="red",font=fnt)
+        canvas.create_text(350,300,text="Want to play again press Enter",fill="green",font=fnt)
     elif(data["winner"]=="draw"):
         canvas.create_text(250,250,text="draw TryAgain",fill="orange",font=fnt)
+        canvas.create_text(350,300,text="Want to play again press Enter",fill="green",font=fnt)
     return
 
 
