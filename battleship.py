@@ -221,7 +221,6 @@ Parameters: dict mapping strs to values ; Tkinter canvas; 2D list of ints
 Returns: None
 '''
 def drawShip(data, canvas, ship):
-    print("ship:3",ship)
     for i in ship:
          canvas.create_rectangle(i[1]*data["cell_size"],i[0]*data["cell_size"],i[1]*data["cell_size"]+data["cell_size"],i[0]*data["cell_size"]+data["cell_size"],fill="white")
     return
@@ -264,7 +263,6 @@ Returns: None
 '''
 def clickUserBoard(data, row, col):
     if(data["num_of_userships"]==5):
-        #print("Start playing the game")
         return
     if([row,col] in data["temporary_ship"]):
         return
