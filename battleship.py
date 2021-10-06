@@ -72,8 +72,6 @@ def mousePressed(data, event, board):
         clickUserBoard(data,output[0],output[1])
     if(board=="comp" and data["num_of_userships"]==5):
         output=getClickedCell(data,event)
-        #if(data["computer_board"][output[0]][output[1]]==SHIP_CLICKED or data["computer_board"][output[0]][output[1]]==EMPTY_CLICKED):
-            #return
         runGameTurn(data,output[0],output[1])
     return
 
