@@ -35,8 +35,7 @@ def makeModel(data):
     data["user_board"]= emptyGrid(data["number_of_rows"],data["number_of_cols"])
     data["computer_board"]=addShips(data["computer_board"],data["num_ships"]) 
     data["temporary_ship"]=[]
-    data["num_of_userships"]=0
-    return 
+    return data
 
 
 '''
@@ -201,6 +200,7 @@ def getClickedCell(data, event):
             if(row*data["cell_size"]<=event.y<=(row+1)*data["cell_size"] and col*data["cell_size"]<=event.x<=(col+1)*data["cell_size"] ):
                 lst.append(row)
                 lst.append(col)
+                #(lst)
     return lst
     #return [event.y//data["cell_size"],event.x//data["cell_size"]]
 
