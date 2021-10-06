@@ -296,6 +296,7 @@ def runGameTurn(data, row, col):
     if(data["computer_board"]==SHIP_CLICKED or data["computer_board"]==EMPTY_CLICKED):
         return
     else:
+        #print(data["computer_board"][row][col])
         updateBoard(data,data["computer_board"],row,col,"user")
     return
 
