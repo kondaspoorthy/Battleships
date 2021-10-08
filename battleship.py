@@ -362,12 +362,16 @@ Returns: None
 '''
 def drawGameOver(data, canvas):
     fnt=('Times',40,'bold')
+    fnt1=('Times',25,'bold')
     if(data["winner"]=="user"):
         canvas.create_text(250,250,text="congraluations",fill="pink",font=fnt)
+        canvas.create_text(250,400,text="Want to try again? press Enter ",fill="green",font=fnt1)
     elif(data["winner"]=="comp"):
         canvas.create_text(250,250,text="Tryagain",fill="red",font=fnt)
+        canvas.create_text(250,400,text="Want to try again? press Enter ",fill="green",font=fnt1)
     elif(data["winner"]=="draw"):
         canvas.create_text(250,250,text="draw TryAgain",fill="orange",font=fnt)
+        canvas.create_text(250,400,text="Want to try again? press Enter ",fill="green",font=fnt1)
     return
 
 
