@@ -423,7 +423,7 @@ if __name__ == "__main__":
     #test.week2Tests()
     #test.testDrawShip()
     test.testUpdateBoard()
-    runSimulation(500, 500)
+    #runSimulation(500, 500)
     test.testGetComputerGuess()
     test.testIsGameOver()
     
