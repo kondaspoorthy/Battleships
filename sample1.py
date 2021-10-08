@@ -45,3 +45,5 @@ def runGameTurn(data, row, col):
     return
 
 
+lst=[[2,3],[4,5],[9,8]]
+lst[1][0]
