@@ -212,6 +212,7 @@ def getClickedCell(data, event):
             if(row*data["cell_size"]<=event.y<=(row+1)*data["cell_size"] and col*data["cell_size"]<=event.x<=(col+1)*data["cell_size"] ):
                 lst.append(row)
                 lst.append(col)
+                #(lst)
     return lst
     #return [event.y//data["cell_size"],event.x//data["cell_size"]]
 
