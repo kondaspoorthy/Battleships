@@ -79,6 +79,7 @@ def mousePressed(data, event, board):
         runGameTurn(data,output[0],output[1])
     return
 
+    return
 
 #### WEEK 1 ####
 
@@ -152,16 +153,18 @@ def drawGrid(data, canvas, grid, showShips):
     for rows in range(0,data["number_of_rows"]):
         for cols in range(0,data["number_of_cols"]):
             if(grid[rows][cols]==EMPTY_UNCLICKED):
-                canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill="blue")
+                colour="blue"
             elif(grid[rows][cols]==SHIP_UNCLICKED):
                 if(showShips==False):
-                    canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill="blue")
+                    colour="blue"
                 else: 
-                    canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill="yellow")
+                    colour="yellow"       
             elif(grid[rows][cols]==SHIP_CLICKED):
-                canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill="red")
+                colour="red"
             elif(grid[rows][cols]==EMPTY_CLICKED):
-                 canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill="white")
+                colour="white"
+            canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill=colour)
+    
     return
 
 
@@ -216,6 +219,7 @@ def getClickedCell(data, event):
             if(row*data["cell_size"]<=event.y<=(row+1)*data["cell_size"] and col*data["cell_size"]<=event.x<=(col+1)*data["cell_size"] ):
                 lst.append(row)
                 lst.append(col)
+                #(lst)
     return lst
     #return [event.y//data["cell_size"],event.x//data["cell_size"]]
 
@@ -236,7 +240,7 @@ shipIsValid(grid, ship)
 Parameters: 2D list of ints ; 2D list of ints
 Returns: bool
 '''
-def shipIsValid(grid, ship):
+def shipIsValid(grid, ship): # checking whether ship  is valid or not
     if(len(ship)==3):
         if(checkShip(grid,ship)):
             if(isVertical(ship)):
@@ -258,7 +262,7 @@ def placeShip(data):
             data["num_of_userships"]+=1
         else:
             print("Error: ship is not Valid")
-        data["temporary_ship"] = [ ]
+        data["temporary_ship"] = [ ] #empty list
         return 
 
 '''
@@ -268,7 +272,6 @@ Returns: None
 '''
 def clickUserBoard(data, row, col):
     if(data["num_of_userships"]==5):
-        #print("Start playing the game")
         return
     if([row,col] in data["temporary_ship"]):
         return
@@ -277,7 +280,7 @@ def clickUserBoard(data, row, col):
     if(len(data["temporary_ship"])==3):
             placeShip(data)
     if(data["num_of_userships"]==5):
-        print("start playing the game")
+            print("start playing the game") # message to the user
     ### WEEK 3 ###
 
 '''
@@ -301,7 +304,7 @@ Parameters: dict mapping strs to values ; int ; int
 Returns: None
 '''
 def runGameTurn(data, row, col):
-    if(data["computer_board"]==SHIP_CLICKED or data["computer_board"]==EMPTY_CLICKED):
+    if(data["computer_board"][row][col]==SHIP_CLICKED or data["computer_board"][row][col]==EMPTY_CLICKED):
         return
     else:
         updateBoard(data,data["computer_board"],row,col,"user")
@@ -319,13 +322,10 @@ Returns: list of ints
 def getComputerGuess(board):
     row=random.randint(0,9)
     col=random.randint(0,9)
-    if(board[row][col]==EMPTY_UNCLICKED or board[row][col]==SHIP_UNCLICKED):
-        return [row,col]
-    else:
-        while(board[row][col]==EMPTY_CLICKED or board[row][col]==SHIP_CLICKED):
-            row=random.randint(0,9)
-            col=random.randint(0,9)
-        return [row,col]
+    while(board[row][col]==EMPTY_CLICKED or board[row][col]==SHIP_CLICKED):
+        row=random.randint(0,9)
+        col=random.randint(0,9)
+    return [row,col]
 
 
 '''
@@ -420,7 +420,7 @@ def runSimulation(w, h):
 if __name__ == "__main__":
 #test.testEmptyGrid()
     ## Finally, run the simulation to test it manually ##
-    #test.testShipIsValid()
+    test.testShipIsValid()
     #test.week2Tests()
     #test.testDrawShip()
     test.testUpdateBoard()
