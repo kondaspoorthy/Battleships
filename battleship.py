@@ -157,7 +157,7 @@ def drawGrid(data, canvas, grid, showShips):
                 colour="red"
             elif(grid[rows][cols]==EMPTY_CLICKED):
                  colour="white"
-    canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill=colour)
+            canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill=colour)
     return
 
 
