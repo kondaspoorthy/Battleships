@@ -69,13 +69,14 @@ Parameters: dict mapping strs to values ; mouse event object ; 2D list of ints
 Returns: None
 '''
 def mousePressed(data, event, board):
+    if(data["winner"]!=None):
+        return
     output=getClickedCell(data,event)
     if(board=="user"):
         clickUserBoard(data,output[0],output[1])          
     if(board=="comp" and data["num_of_userships"]==5):
-            if(data["winner"]==None):
-                output=getClickedCell(data,event)
-                runGameTurn(data,output[0],output[1])
+        output=getClickedCell(data,event)
+        runGameTurn(data,output[0],output[1])
     return
 
 
@@ -423,7 +424,7 @@ if __name__ == "__main__":
     #test.week2Tests()
     #test.testDrawShip()
     test.testUpdateBoard()
-    #runSimulation(500, 500)
+    runSimulation(500, 500)
     test.testGetComputerGuess()
     test.testIsGameOver()
     
