@@ -70,9 +70,10 @@ def mousePressed(data, event, board):
     output=getClickedCell(data,event)
     if(board=="user"):
         clickUserBoard(data,output[0],output[1])
-    elif(board=="comp" and data["num_of_userships"]==5):
+    if(board=="comp" and data["num_of_userships"]==5):
         output=getClickedCell(data,event)
         runGameTurn(data,output[0],output[1])
+    return
 
     return
 
@@ -153,12 +154,13 @@ def drawGrid(data, canvas, grid, showShips):
                 if(showShips==False):
                     colour="blue"
                 else: 
-                    colour="yellow"
+                    colour="yellow"       
             elif(grid[rows][cols]==SHIP_CLICKED):
                 colour="red"
             elif(grid[rows][cols]==EMPTY_CLICKED):
-                 colour="white"
+                colour="white"
             canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill=colour)
+    
     return
 
 
@@ -300,7 +302,10 @@ def runGameTurn(data, row, col):
         return
     else:
         updateBoard(data,data["computer_board"],row,col,"user")
+    choice=getComputerGuess(data["user_board"])
+    updateBoard(data,data["user_board"],choice[0],choice[1],"comp")
     return
+
 
 
 '''
@@ -309,7 +314,12 @@ Parameters: 2D list of ints
 Returns: list of ints
 '''
 def getComputerGuess(board):
-    return
+    row=random.randint(0,9)
+    col=random.randint(0,9)
+    while(board[row][col]==EMPTY_CLICKED or board[row][col]==SHIP_CLICKED):
+        row=random.randint(0,9)
+        col=random.randint(0,9)
+    return [row,col]
 
 
 '''
@@ -392,4 +402,5 @@ if __name__ == "__main__":
     #test.testDrawShip()
     test.testUpdateBoard()
     runSimulation(500, 500)
+    test.testGetComputerGuess()
     

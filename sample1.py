@@ -30,9 +30,20 @@ def drawGrid(data, canvas, grid, showShips):
                 canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill="yellow")
     return
 root=tk.Tk()
-canvas=tk.Canvas(root,width=500,height=500)
-canvas.pack()
-drawGrid({ })
+def drawShip(data, canvas, ship):
+    for i in range(0,3):
+        canvas.create_rectangle(ship[i][1]*data["cell_size"],ship[i][0]*data["cell_size"],ship[i][1]*data["cell_size"]+data["cell_size"],ship[i][0]*data["cell_size"]+data["cell_size"],fill="white")    
+    return
+data["computer_board"]==SHIP_CLICKED or data["computer_board"]==EMPTY_CLICKED):
+def runGameTurn(data, row, col):
+    if(data["computer_board"]==SHIP_CLICKED or data["computer_board"]==EMPTY_CLICKED):
+        return
+    else:
+        updateBoard(data,data["computer_board"],row,col,"user")
+    choice=getComputerGuess(data["user_board"])
+    updateBoard(data,data["user_board"],choice[0],choice[1],"comp")
+    return
+
 
 lst=[[2,3],[4,5],[9,8]]
 lst[1][0]
