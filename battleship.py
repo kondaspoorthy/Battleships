@@ -74,6 +74,7 @@ def mousePressed(data, event, board):
         output=getClickedCell(data,event)
         runGameTurn(data,output[0],output[1])
 
+    return
 
 #### WEEK 1 ####
 
@@ -233,7 +234,7 @@ shipIsValid(grid, ship)
 Parameters: 2D list of ints ; 2D list of ints
 Returns: bool
 '''
-def shipIsValid(grid, ship):
+def shipIsValid(grid, ship): # checking whether ship  is valid or not
     if(len(ship)==3):
         if(checkShip(grid,ship)):
             if(isVertical(ship)):
@@ -255,7 +256,7 @@ def placeShip(data):
             data["num_of_userships"]+=1
         else:
             print("Error: ship is not Valid")
-        data["temporary_ship"] = [ ]
+        data["temporary_ship"] = [ ] #empty list
         return 
 
 '''
@@ -273,7 +274,7 @@ def clickUserBoard(data, row, col):
     if(len(data["temporary_ship"])==3):
             placeShip(data)
     if(data["num_of_userships"]==5):
-        print("start playing the game")
+            print("start playing the game") # message to the user
     ### WEEK 3 ###
 
 '''
@@ -386,7 +387,7 @@ def runSimulation(w, h):
 if __name__ == "__main__":
 #test.testEmptyGrid()
     ## Finally, run the simulation to test it manually ##
-    #test.testShipIsValid()
+    test.testShipIsValid()
     #test.week2Tests()
     #test.testDrawShip()
     test.testUpdateBoard()

@@ -34,3 +34,5 @@ canvas=tk.Canvas(root,width=500,height=500)
 canvas.pack()
 drawGrid({ })
 
+lst=[[2,3],[4,5],[9,8]]
+lst[1][0]
