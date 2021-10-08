@@ -37,6 +37,8 @@ def makeModel(data):
     data["temporary_ship"]=[]
     data["num_of_userships"]=0
     data["winner"]=None
+    data["max_turns"]=50
+    data["current_turns"]=0
     return 
 
 
@@ -61,6 +63,7 @@ Returns: None
 '''
 def keyPressed(data, event):
     pass
+    
 
 
 '''
@@ -310,6 +313,9 @@ def runGameTurn(data, row, col):
         updateBoard(data,data["computer_board"],row,col,"user")
     choice=getComputerGuess(data["user_board"])
     updateBoard(data,data["user_board"],choice[0],choice[1],"comp")
+    data["current_turns"]+=1
+    if(data["current_turns"]==data["max_turns"]):
+        data["winner"]="draw"
     return
 
 
@@ -360,6 +366,8 @@ def drawGameOver(data, canvas):
         canvas.create_text(250,250,text="congraluations",fill="pink",font=fnt)
     elif(data["winner"]=="comp"):
         canvas.create_text(250,250,text="Tryagain",fill="red",font=fnt)
+    elif(data["winner"]=="draw"):
+        canvas.create_text(250,250,text="draw TryAgain",fill="orange",font=fnt)
     return
 
 
