@@ -36,6 +36,7 @@ def makeModel(data):
     data["computer_board"]=addShips(data["computer_board"],data["num_ships"]) 
     data["temporary_ship"]=[]
     data["num_of_userships"]=0
+    data["winner"]=None
     return 
 
 
@@ -48,6 +49,7 @@ def makeView(data, userCanvas, compCanvas):
     drawGrid(data,compCanvas,data["computer_board"],False)
     drawGrid(data,userCanvas,data["user_board"],True)
     drawShip(data,userCanvas,data["temporary_ship"])
+    drawGameOver(data,userCanvas)
     return
     
 
@@ -67,9 +69,11 @@ Parameters: dict mapping strs to values ; mouse event object ; 2D list of ints
 Returns: None
 '''
 def mousePressed(data, event, board):
+    if(data["winner"]!=None):
+        return
     output=getClickedCell(data,event)
     if(board=="user"):
-        clickUserBoard(data,output[0],output[1])
+        clickUserBoard(data,output[0],output[1])          
     if(board=="comp" and data["num_of_userships"]==5):
         output=getClickedCell(data,event)
         runGameTurn(data,output[0],output[1])
@@ -288,7 +292,9 @@ def updateBoard(data, board, row, col, player):
     if(board[row][col]==SHIP_UNCLICKED):
         board[row][col]=SHIP_CLICKED
     elif(board[row][col]==EMPTY_UNCLICKED):
-        board[row][col]=EMPTY_CLICKED    
+        board[row][col]=EMPTY_CLICKED 
+    if(isGameOver(board)):
+        data["winner"]=player       
     return
 
 
@@ -328,7 +334,19 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isGameOver(board):
-    return
+    for each in board:
+        for i in each:
+            if(i==SHIP_UNCLICKED):
+                return False
+    return True
+ 
+
+
+
+
+
+
+    
 
 
 '''
@@ -337,6 +355,11 @@ Parameters: dict mapping strs to values ; Tkinter canvas
 Returns: None
 '''
 def drawGameOver(data, canvas):
+    fnt=('Times',40,'bold')
+    if(data["winner"]=="user"):
+        canvas.create_text(250,250,text="congraluations",fill="pink",font=fnt)
+    elif(data["winner"]=="comp"):
+        canvas.create_text(250,250,text="Tryagain",fill="red",font=fnt)
     return
 
 
@@ -403,4 +426,5 @@ if __name__ == "__main__":
     test.testUpdateBoard()
     runSimulation(500, 500)
     test.testGetComputerGuess()
+    test.testIsGameOver()
     
