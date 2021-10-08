@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-lst=[[2,3],[3,4],[3,3],[3,7],[3,4]]
-list=su
-=======
 import tkinter as tk
 EMPTY_UNCLICKED = 1
 SHIP_UNCLICKED = 2
@@ -51,4 +47,3 @@ def runGameTurn(data, row, col):
 
 lst=[[2,3],[4,5],[9,8]]
 lst[1][0]
->>>>>>> main
