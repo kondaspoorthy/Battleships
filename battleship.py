@@ -148,16 +148,18 @@ def drawGrid(data, canvas, grid, showShips):
     for rows in range(0,data["number_of_rows"]):
         for cols in range(0,data["number_of_cols"]):
             if(grid[rows][cols]==EMPTY_UNCLICKED):
-                canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill="blue")
+                colour="blue"
             elif(grid[rows][cols]==SHIP_UNCLICKED):
                 if(showShips==False):
-                    canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill="blue")
+                    colour="blue"
                 else: 
-                    canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill="yellow")
+                    colour="yellow"       
             elif(grid[rows][cols]==SHIP_CLICKED):
-                canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill="red")
+                colour="red"
             elif(grid[rows][cols]==EMPTY_CLICKED):
-                 canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill="white")
+                colour="white"
+            canvas.create_rectangle(cols*data["cell_size"],rows*data["cell_size"],(cols+1)*data["cell_size"],(rows+1)*data["cell_size"],fill=colour)
+    
     return
 
 
@@ -313,13 +315,10 @@ Returns: list of ints
 def getComputerGuess(board):
     row=random.randint(0,9)
     col=random.randint(0,9)
-    if(board[row][col]==EMPTY_UNCLICKED or board[row][col]==SHIP_UNCLICKED):
-        return [row,col]
-    else:
-        while(board[row][col]==EMPTY_CLICKED or board[row][col]==SHIP_CLICKED):
-            row=random.randint(0,9)
-            col=random.randint(0,9)
-        return [row,col]
+    while(board[row][col]==EMPTY_CLICKED or board[row][col]==SHIP_CLICKED):
+        row=random.randint(0,9)
+        col=random.randint(0,9)
+    return [row,col]
 
 
 '''
